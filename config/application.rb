@@ -25,6 +25,9 @@ module LabInteractiveManagement
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # lets try to use the concerns dirs in app/models, ..
+    # config.autoload_paths += Dir["#{ config.root}/lib", "#{config.root}/lib/**/"]
+
     config.generators do |g|
       g.test_framework :rspec
       g.orm :active_record
