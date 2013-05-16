@@ -11,6 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20130516023144) do
+
+  create_table "groups", force: true do |t|
+    t.text     "json_rep"
+    t.text     "revision"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "interactive_models", force: true do |t|
+    t.integer  "interactive_id"
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "interactive_models", ["interactive_id"], name: "index_interactive_models_on_interactive_id", using: :btree
+  add_index "interactive_models", ["model_id", "model_type"], name: "index_interactive_models_on_model_id_and_model_type", using: :btree
+
+  create_table "interactives", force: true do |t|
+    t.text     "json_rep"
+    t.string   "revision"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "interactives", ["group_id"], name: "index_interactives_on_group_id", using: :btree
+
+  create_table "md2ds", force: true do |t|
+    t.text     "json_rep"
+    t.string   "revision"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
