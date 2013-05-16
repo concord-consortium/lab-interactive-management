@@ -1,14 +1,23 @@
 require 'rubygems'
 require 'active_support/all'
-
+require 'open-uri'
 # TODO: use a Rails generator
 
+# TODO: get this from the lab web server?
 # make sure that this file reflects the latest interactive meta data
 # interactive metadata is defined in that lab project at:
 # src/lab/common/controllers/interactive-metadata.js
 load "meta_data/interactive_metadata.rb"
 
-serialized_attributes = []
+# TODO: allow one to point this at other servers
+# TODO: may replace this with a static list of properties if they
+# don't change
+# Interactive properties that are defined in the interactives.json file
+keys = JSON.parse(open("http://lab.dev.concord.org/interactives.json").read)['interactives'].map(&:keys).uniq
+serialized_attributes = keys.flatten.map{ |k| ":#{k}"}
+#puts "Interactive properties defined in interactive.json \n#{serialized_attributes.inspect}"
+# [:title, :path, :groupKey, :subtitle, :about, :publicationStatus]
+
 $interactive_metadata.each do |k, v|
   prop_name = k.to_s
   if %w{ type created_at updated_at }.include?(prop_name)
@@ -21,8 +30,9 @@ $interactive_metadata.each do |k, v|
 
   serialized_attributes << ":#{prop_name}"
 end
-serialized_attributes_str = "store :json_rep, :accessors => [" << serialized_attributes.join(', ') << ']'
-#puts serialized_attributes_str
+
+serialized_attributes_str = "store :json_rep, :accessors => [" << serialized_attributes.uniq.join(', ') << ']'
+# puts serialized_attributes_str
 
 # code = <<-CODE.gsub(/^ {6}/, '')
 code = <<-CODE

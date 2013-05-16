@@ -26,6 +26,7 @@ metadata.each do |k, v|
 
   serialized_attributes << ":#{prop_name}"
 end
+serialized_attributes << ":url"
 serialized_attributes_str = "store :json_rep, :accessors => [" << serialized_attributes.join(', ') << ']'
 
 puts "Generating attributes"

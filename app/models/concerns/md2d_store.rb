@@ -19,7 +19,7 @@ module Md2dStore
 
   included do
     # GENERATED
-      store :json_rep, :accessors => [:viewOptions, :atom, :element, :pairwiseLJProperties, :obstacle, :radialBond, :angularBond, :restraint, :textBox, :_type, :imagePath, :minX, :maxX, :minY, :maxY, :width, :height, :unitsScheme, :lennardJonesForces, :coulombForces, :temperatureControl, :targetTemperature, :modelSampleRate, :gravitationalField, :timeStep, :dielectricConstant, :realisticDielectricEffect, :solventForceFactor, :solventForceType, :additionalSolventForceMult, :additionalSolventForceThreshold, :polarAAEpsilon, :viscosity, :timeStepsPerTick, :geneticEngineState, :DNA, :DNAComplement, :mRNA, :useQuantumDynamics, :elementEnergyLevels, :radiationlessEmissionProb]
+      store :json_rep, :accessors => [:viewOptions, :atom, :element, :pairwiseLJProperties, :obstacle, :radialBond, :angularBond, :restraint, :textBox, :_type, :imagePath, :minX, :maxX, :minY, :maxY, :width, :height, :unitsScheme, :lennardJonesForces, :coulombForces, :temperatureControl, :targetTemperature, :modelSampleRate, :gravitationalField, :timeStep, :dielectricConstant, :realisticDielectricEffect, :solventForceFactor, :solventForceType, :additionalSolventForceMult, :additionalSolventForceThreshold, :polarAAEpsilon, :viscosity, :timeStepsPerTick, :geneticEngineState, :DNA, :DNAComplement, :mRNA, :useQuantumDynamics, :elementEnergyLevels, :radiationlessEmissionProb, :url]
     # GENERATED
   end
 end

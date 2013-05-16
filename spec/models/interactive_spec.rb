@@ -5,6 +5,21 @@ describe Interactive do
 
   let(:group) { create(:inquiry_pendulum) }
 
+  describe "#create 2" do
+    before(:each) do
+      Interactive.create!(build(:pendulum).attributes)
+    end
+
+    it "should create the join model" do
+      i = Interactive.first
+      m = Md2d.new(build(:md2d_pendulum0).attributes)
+      i.md2ds << m
+      i.save!
+      i.md2ds.should have(1).md2ds
+    end
+  end
+
+
   describe "#create" do
     subject {  create(:pendulum) }
 
