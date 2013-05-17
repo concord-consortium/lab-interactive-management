@@ -17,7 +17,6 @@ namespace :app do
   namespace :import do
     desc "import interactives from public/interactives.json"
     task :built_interactives => ['db:reset'] do
-      ActiveRecord::Base.subclasses.each(&:delete_all)
       Parser::InteractiveList.new('http://localhost:3000', 'interactives.json').parse
     end
   end

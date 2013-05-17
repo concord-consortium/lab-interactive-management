@@ -17,16 +17,13 @@ class Interactive < ActiveRecord::Base
     end
   end
 
-  def presenter
-    # trickery to get the serialized attribute, json_rep, to show up
-    # as if its a top level attribute
-    json_rep_hash = self.json_rep
-    # here's the models, not serialized, attributes
-    presenter_hash = self.attributes.delete('json_rep')
-    presenter_hash.merge(json_rep)
-    presenter_hash['models'].each do |m|
-      m['url'] = "webapp/models/md2ds/#{m['url']}"
+  def ordered_attributes
+    # TODO: Need to ask how the interactive JSON files are generated to determine how the properties are ordered
+    # for now, using this script, used_interactive_properties.rb , to find ordering
+    ordered_attrs = { }
+    %w{ title publicationStatus subtitle about fontScale models outputs filteredOutputs parameters exports components layout template }.each do |attr_name|
+      ordered_attrs[attr_name] = attributes[attr_name]
     end
-    presenter_hash
+    ordered_attrs.merge(self.attributes)
   end
 end
