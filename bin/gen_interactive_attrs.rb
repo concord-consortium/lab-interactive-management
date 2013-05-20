@@ -30,7 +30,8 @@ $interactive_metadata.each do |k, v|
 
   serialized_attributes << ":#{prop_name}"
 end
-
+# TODO: order the interactive properties like:
+# title, publicationStatus, subtitle, about, fontScale, models, outputs, filteredOutputs, parameters, exports, components, layout, template
 serialized_attributes_str = "store :json_rep, :accessors => [" << serialized_attributes.uniq.join(', ') << ']'
 # puts serialized_attributes_str
 
