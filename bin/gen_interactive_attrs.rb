@@ -3,6 +3,8 @@ require 'active_support/all'
 require 'open-uri'
 # TODO: use a Rails generator
 
+puts "WARNING: use rails generator: $ rails generate interactive_store"
+exit(1)
 # TODO: get this from the lab web server?
 # make sure that this file reflects the latest interactive meta data
 # interactive metadata is defined in that lab project at:
