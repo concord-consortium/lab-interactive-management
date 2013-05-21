@@ -2,24 +2,30 @@ class InteractivesController < ApplicationController
   before_action :set_interactive, only: [:show, :edit, :update, :destroy]
 
   def index
-    groups = Group.all.map do |g|
-      {
-        'id' =>  g.path, 'path' =>  g.path, 'name' => g.name, 'category' => g.category,
-        'location' => url_helper.group_path(g)
-      }
-    end
+    respond_to do |format|
+#       format.any { render :file => "#{Rails.public_path}/interactives.html"}
+      format.json do
 
-    interactives = Interactive.all.map do |i|
-      {
-        'id' => i.path, 'title' => i.title, 'path' => "webapp/interactives/#{i.path}", 'groupKey' => i.groupKey,
-        'subtitle' => i.subtitle, 'about' => i.about, 'publicationStatus' => i.publicationStatus,
-        'location' =>   url_helper.interactive_path(i)
-      }
+        groups = Group.all.map do |g|
+          {
+            'id' =>  g.path, 'path' =>  g.path, 'name' => g.name, 'category' => g.category,
+            'location' => url_helper.group_path(g)
+          }
+        end
+
+        interactives = Interactive.all.map do |i|
+          {
+            'id' => i.path, 'title' => i.title, 'path' => "webapp/interactives/#{i.path}", 'groupKey' => i.groupKey,
+            'subtitle' => i.subtitle, 'about' => i.about, 'publicationStatus' => i.publicationStatus,
+            'location' =>   url_helper.interactive_path(i)
+          }
+        end
+        render :json => {
+          'interactives'  => interactives,
+          'groups'        => groups
+        }
+      end
     end
-    render :json => {
-      'interactives'  => interactives,
-      'groups'        => groups
-    }
   end
 
   def show
@@ -27,7 +33,7 @@ class InteractivesController < ApplicationController
       render :json => presenter
     else
       render :json => {:errors => "Interactive with path = \"#{params[:id]}\" not found"}, :status => :unprocessable_entity
-#      render :json 'i', :status => :unprocessable_entity
+      #      render :json 'i', :status => :unprocessable_entity
     end
   end
 
@@ -142,15 +148,18 @@ class InteractivesController < ApplicationController
 
       {
         'type' => im.model.json_rep['type'],
-        'url' => url_helper.models_md2d_path(im.model.url),
+        'url' => url_helper.models_md2d_path(im.model.url)[1..-1],
         'id' => im.model.url,
         # not all of viewOptions are needed for the interactive
         # return what was in the JSON file for this interactive
         'viewOptions' => json_rep_model['viewOptions']
+        # 'url' => im.model.url[1..-1]
+        # 'url' => json_rep_model['url'][1..-1]
         # TODO: lets fix this. maybe have two fields in the md2d model?
         # 'viewOptions' => im.model.viewOptions
       }
     end
+
     presenter_hash
   end
 end
