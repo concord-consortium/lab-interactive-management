@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130516023144) do
+ActiveRecord::Schema.define(version: 20130522175729) do
 
   create_table "groups", force: true do |t|
     t.text     "json_rep"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20130516023144) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "from_import", default: false
   end
 
   add_index "interactives", ["group_id"], name: "index_interactives_on_group_id", using: :btree

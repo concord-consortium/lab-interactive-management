@@ -21,9 +21,10 @@ class Interactive < ActiveRecord::Base
     # TODO: Need to ask how the interactive JSON files are generated to determine how the properties are ordered
     # for now, using this script, used_interactive_properties.rb , to find ordering
     ordered_attrs = { }
-    %w{ title publicationStatus subtitle about fontScale models outputs filteredOutputs parameters exports components layout template }.each do |attr_name|
-      ordered_attrs[attr_name] = attributes[attr_name]
+    %w{ path title publicationStatus subtitle about fontScale models outputs filteredOutputs parameters exports components layout template }.each do |attr_name|
+      ordered_attrs[attr_name] = send(attr_name.to_sym)
     end
-    ordered_attrs.merge(self.attributes)
+    #ordered_attrs.merge(self.attributes)
+    ordered_attrs
   end
 end

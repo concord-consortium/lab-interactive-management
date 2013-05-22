@@ -132,9 +132,12 @@ class InteractivesController < ApplicationController
   end
 
   def presenter
-    presenter_hash = {'id' => @interactive.path }
+    presenter_hash = {'id' => @interactive.path, 'from_import' => @interactive.from_import, 'groupKey' => @interactive.group.path }
     # don't include the interactive's serialized attribute
-    presenter_hash.merge!(@interactive.ordered_attributes.delete('json_rep'))
+
+    attrs = @interactive.ordered_attributes
+    attrs.delete('json_rep')
+    presenter_hash.merge!(attrs)
 
     # Two options here to get a representation of this interactive's models
     # 1 - get the values, in json_rep['models'] that was set from the interactive JSON file
