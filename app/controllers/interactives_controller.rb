@@ -1,9 +1,12 @@
 class InteractivesController < ApplicationController
-  before_action :set_interactive, only: [:show, :edit, :update, :destroy]
+  #TODO: remove when we have authentication
+  skip_before_filter :verify_authenticity_token
+
+  before_action :set_interactive, only: [:show, :update, :destroy]
+  before_action :set_group, only: [:create]
 
   def index
     respond_to do |format|
-#       format.any { render :file => "#{Rails.public_path}/interactives.html"}
       format.json do
 
         groups = Group.all.map do |g|
@@ -37,13 +40,17 @@ class InteractivesController < ApplicationController
     end
   end
 
-  # def group_list
-  #   interactives = Interactive.all.collect do |i|
-  #      presenter(i).group_listing
-  #   end
-  #   render :json => interactives
-  # end
+  def create
+    @interactive = Interactive.new(new_interactive_params)
+    @interactive.group = @group
+    update_models
 
+    if @interactive.save
+      render :json => presenter
+    else
+      render :json => {:errors => @interactive.error}, :status => :forbidden
+    end
+  end
   # def create
   #   group = Group.find(params[:interactive][:groupKey])
   #   create_path_and_id(group)
@@ -127,8 +134,18 @@ class InteractivesController < ApplicationController
   # end
   private
 
+  def set_group
+    # @group = Group.find_by_path(params[:interactive][:groupKey])
+    if @interactive
+      @group = @interactive.group
+    else
+      @group = Group.find_by_path(params[:interactive][:groupKey])
+    end
+  end
+
   def set_interactive
-    @interactive = Interactive.find_by_path(params[:id])
+    path = params[:id] || params[:interactive][:id]
+    @interactive = Interactive.find_by_path(path)
   end
 
   def presenter
@@ -139,32 +156,49 @@ class InteractivesController < ApplicationController
     attrs.delete('json_rep')
     presenter_hash.merge!(attrs)
 
+    #    presenter_hash['path'] = url_helper.interactive_path(@interactive.path)[1..-1]
+
     # Two options here to get a representation of this interactive's models
     # 1 - get the values, in json_rep['models'] that was set from the interactive JSON file
     # when this interactive was created.
     # OR
     # 2 - get the values interactive_models associated with this interactive.
     # Doing #2
-    presenter_hash['models'] = @interactive.interactive_models.map do |im|
+    presenter_hash['models'] = @interactive.md2ds.map do |md2d|
       # find the 'local' hash for this model in the json_rep attribute
-      json_rep_model = @interactive.json_rep['models'].find { |m| m['url'] == im.model.url }
+      json_rep_model = @interactive.json_rep['models'].find { |m| m['url'].match(/#{md2d.url}/) }
 
       {
-        'type' => im.model.json_rep['type'],
-        'url' => url_helper.models_md2d_path(im.model.url)[1..-1],
-        'id' => im.model.url,
+        'type' => md2d.json_rep['type'],
+        'url' => url_helper.models_md2d_path(md2d.url)[1..-1],
+        'id' => md2d.url,
         # not all of viewOptions are needed for the interactive
         # return what was in the JSON file for this interactive
         'viewOptions' => json_rep_model['viewOptions'],
         'modelOptions' => json_rep_model['modelOptions'],
         'onLoad' => json_rep_model['onLoad']
-        # 'url' => im.model.url[1..-1]
-        # 'url' => json_rep_model['url'][1..-1]
-        # TODO: lets fix this. maybe have two fields in the md2d model?
-        # 'viewOptions' => im.model.viewOptions
       }
     end
 
     presenter_hash
+  end
+
+  def update_models
+    params[:interactive][:models].each do |model_hash|
+      md2d = Md2d.find_by_url(model_hash['id'])
+      @interactive.md2ds << md2d
+      # # these model options should ONLY be stored in the interactive
+      # params[:interactive][:viewOptions] = model_hash.delete('viewOptions')
+      # params[:interactive][:onLoad] = model_hash.delete('onLoad')
+      # params[:interactive][:modelOptions] = model_hash.delete('modelOptions')
+    end
+  end
+
+  def new_interactive_params
+    params[:interactive].delete('id')
+    group_path = params[:interactive][:groupKey]
+    title = params[:interactive][:title]
+    params[:interactive][:path] = "interactives_#{group_path}_#{title}"
+    params[:interactive].permit!
   end
 end
