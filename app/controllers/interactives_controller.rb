@@ -152,7 +152,9 @@ class InteractivesController < ApplicationController
         'id' => im.model.url,
         # not all of viewOptions are needed for the interactive
         # return what was in the JSON file for this interactive
-        'viewOptions' => json_rep_model['viewOptions']
+        'viewOptions' => json_rep_model['viewOptions'],
+        'modelOptions' => json_rep_model['modelOptions'],
+        'onLoad' => json_rep_model['onLoad']
         # 'url' => im.model.url[1..-1]
         # 'url' => json_rep_model['url'][1..-1]
         # TODO: lets fix this. maybe have two fields in the md2d model?
