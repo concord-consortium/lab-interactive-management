@@ -13,7 +13,7 @@ module Parser
 
     def create_model
       # TODO: get the revision for the md2d from json
-      md2d = ::Md2d.new(:revision => '0.0.1')
+      md2d = ::Md2d.new(:revision => '0.0.1', :from_import => true)
 
       # read the contents of one md2d json file
       puts "Reading Md2d JSON from #{uri}/#{md2d_hash['url']}"

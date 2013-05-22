@@ -46,7 +46,7 @@ module Models
     end
 
     def presenter
-      presenter_hash = { 'id' => @md2d.url, 'type' => 'md2d' }
+      presenter_hash = { 'id' => @md2d.url, 'type' => 'md2d', 'from_import' => @md2d.from_import }
       presenter_hash.merge!(@md2d.attributes.delete('json_rep'))
     end
 

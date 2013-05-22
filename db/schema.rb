@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130522175729) do
+ActiveRecord::Schema.define(version: 20130522184940) do
 
   create_table "groups", force: true do |t|
     t.text     "json_rep"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20130522175729) do
     t.string   "revision"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "from_import", default: false
   end
 
 end
