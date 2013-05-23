@@ -1,0 +1,13 @@
+Description:
+    Load the database with Interactives. This will download all the
+    JSON that defines interactives from a source URL. It first looks
+    for a interactives.json file that defines all of the interactives
+    and groups. It follows references, URLs, in this interactive.json
+    file and will downloads and process json files that define each group,
+    interactive and md2d model.
+
+    Each of the json files will generate a DB record, and AR model instance,
+    for groups, interactives and md2d.
+
+Example:
+    rails generate lab:import_interactives
