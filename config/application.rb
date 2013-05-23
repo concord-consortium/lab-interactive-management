@@ -34,5 +34,7 @@ module LabInteractiveManagement
       # g.fixture_replacement :factory_girl
     end
 
+    # for heroku
+    config.assets.initialize_on_precompile = false
   end
 end
