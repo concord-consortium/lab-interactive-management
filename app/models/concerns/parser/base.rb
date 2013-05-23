@@ -8,6 +8,7 @@ module Parser
 
     def initialize(uri)
       self.uri = uri
+      # URI.scheme_list.values.map(&:to_s).map{ |s| s.split('::').last.downcase }
       # schemes = URI.scheme_list.values.map(&:to_s)
       # self.uri = case uri.class.name
       #            when 'String'
@@ -20,7 +21,8 @@ module Parser
     end
 
     def read_json_file(path)
-      full_url = URI.parse("#{self.uri}/#{path}")
+      location = "#{self.uri}/#{path}"
+      full_url = uri.match(/^http::/) ? URI.parse(location) : location
       open(full_url).read
     end
   end
