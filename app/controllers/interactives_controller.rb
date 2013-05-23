@@ -198,7 +198,7 @@ class InteractivesController < ApplicationController
     params[:interactive].delete('id')
     group_path = params[:interactive][:groupKey]
     title = params[:interactive][:title]
-    params[:interactive][:path] = "interactives_#{group_path}_#{title}"
+    params[:interactive][:path] = "interactives_#{group_path}_#{title}"..gsub('$','_').gsub(/^_/,"").gsub('.json','')
     params[:interactive].permit!
   end
 end
