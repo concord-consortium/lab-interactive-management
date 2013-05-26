@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130522184940) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "groups", force: true do |t|
     t.text     "json_rep"
     t.text     "revision"
