@@ -73,6 +73,10 @@ describe Parser::Interactive do
       Md2d.count.should == 1
     end
 
+    it "should create a Md2d with the imagePath" do
+      subject.md2ds.first.imagePath.should == 'imports/legacy-mw-content/converted/inquiry-space/pendulum/'
+    end
+
     it "should create a Md2d with the correct properties" do
       md2d = subject.md2ds.first
       md2d.url.should == "imports_legacy-mw-content_converted_inquiry-space_pendulum_pendulum1_0"

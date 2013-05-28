@@ -28,6 +28,7 @@ module Parser
       # in the InteractiveModel join to ALWAYS be 0 ??
       md2d_hash.delete('id')
       md2d.json_rep = md2d_hash
+      md2d.gen_image_path
       md2d.gen_new_url
 
       md2d.save!

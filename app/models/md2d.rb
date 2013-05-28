@@ -6,6 +6,10 @@ class Md2d < ActiveRecord::Base
     self.url = json_rep['url'].gsub("/","_").gsub('$','_').gsub(/^_/,"").gsub('.json','')
   end
 
+  def gen_image_path
+    self.json_rep['imagePath'] = self.json_rep['url'].gsub(/^\//, '').match(/.*\//)[0];
+  end
+
   def self.find_by_url(url)
     find do |g|
       g if g.json_rep['url'] == url
