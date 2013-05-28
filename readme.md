@@ -1,6 +1,6 @@
 Lab Interactive Management (LabIM)
 ===================================
-A Rails 4 application that manages Next Gen MW, i.e. lab framework, interactives.
+A Rails 4 application that manages [Next Gen MW](https://github.com/concord-consortium/lab), i.e. lab framework, interactives.
 
 * <i>NOTE: the Code Generation, Import Lab framework files and Database
   creation steps below **MUST** all be based on the same release or
@@ -75,6 +75,8 @@ Deployment
        $ heroku apps:create my-lab-im
 
 * Deploy. [Getting starting with Rails3.x](https://devcenter.heroku.com/articles/rails3)
+  This will use Bundler to install all the dependencies/gems, precompile the assets, etc.
+
   1. Deploy master branch
 
        $ git push heroku master
@@ -87,9 +89,13 @@ Deployment
 
         $ heroku run rake db:migrate
 
+  * Add the Lab framework files *Note: This uses a specific archive version that is created by the lab framework and identified by the  git commit ab633d2*`
+
+        $ rails generate lab:update\_lab https://lab-staging.s3.amazonaws.com/lab_ab633d2.tar.gz
+
   * Commit the Lab framework files and push them to Heroku *Note: do not push these files to the LabIm git repo*
 
-        $ git add public; git commit public; git push heroku heroku_branch:master
+        $ git add public; git commit public -m 'Add lab framework files to the public dir'; git push heroku master
 
   * Populate/Initialize the DB
 
@@ -98,3 +104,10 @@ Deployment
   * View LabIm running on heroku
 
         $ heroku open
+
+  * Remove the Lab framework files. We don't want to add the lab
+   framework files into this project. We added them temporarily so we
+   could update our Heroku app. *TODO: find a better way to deploy Lab
+   framework files to heroku*
+
+        $ git reset --hard HEAD~1
