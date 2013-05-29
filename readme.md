@@ -40,11 +40,11 @@ are two rails generators that make these updates.
 
 - To re-generate the metadata for interactives:
 
-     $ rails generate interactive_store
+     $ rails generate lab:interactive_store
 
 - To re-generate the metadata for md2d models:
 
-     $ rails generate md2d_store
+     $ rails generate lab:md2d_store
 
 Database creation
 -----------------
