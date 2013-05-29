@@ -116,10 +116,8 @@ $md2d_metadata = {
       serialize: false
     },
     useQuantumDynamics: {
-    },
-    elementEnergyLevels: {
-    },
-    radiationlessEmissionProb: {
+      default: false,
+      serialize: false
     }
   },
 
@@ -566,5 +564,37 @@ $md2d_metadata = {
       hostType: {},
       hostIndex: {},
       textAlign: {}
+    },
+
+    quantumDynamics: {
+      elementEnergyLevels: {
+        defaultValue: []
+      },
+      photons: {
+        defaultValue: {}
+      },
+      radiationlessEmissionProbability: {
+        defaultValue: 1
+      }
+    },
+
+    photon: {
+      x: {
+        serialize: true
+      },
+      y: {
+        serialize: true
+      },
+      vx: {
+        defaultValue: 0,
+        serialize: true
+      },
+      vy: {
+        defaultValue: 0,
+        serialize: true
+      },
+      angularFrequency: {
+        serialize: true
+      }
     }
-  }
+}
