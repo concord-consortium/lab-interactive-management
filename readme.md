@@ -21,20 +21,6 @@ All of these dependencies are installed and managed by [Bundler](http://gembundl
 - PostgreSQL
 - *See Gemfile*
 
-Code Generation
----------------
-As the definitions/metadata of the interactives and models change in the lab
-framework we'll need to update a small amonut of code in LabIM. There
-are two rails generators that make these updates.
-
-- To re-generate the metadata for interactives:
-
-     $ rails generate interactive_store
-
-- To re-generate the metadata for md2d models:
-
-     $ rails generate md2d_store
-
 Import Lab framework files
 ----------------------------------
 The lab framework provides a set of interactive files that **MUST** be
@@ -46,6 +32,19 @@ imported. These files can be imported from a Lab framework release or from an ar
 
 - From a lab framework release *TODO: not implemented*:
 
+Code Generation
+---------------
+As the definitions/metadata of the interactives and models change in the lab
+framework we'll need to update a small amount of code in LabIM. There
+are two rails generators that make these updates.
+
+- To re-generate the metadata for interactives:
+
+     $ rails generate interactive_store
+
+- To re-generate the metadata for md2d models:
+
+     $ rails generate md2d_store
 
 Database creation
 -----------------
@@ -67,6 +66,10 @@ Interactives can be imported into the DB in two ways.
 Deployment
 ----------
 ### Heroku
+#### [Deploy to Staging](staging-readme.md)
+
+#### Deploy to Production
+
 1. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command#installing-the-heroku-cli).
 
 
@@ -74,16 +77,17 @@ Deployment
 
        $ heroku apps:create my-lab-im
 
-* [Deploy to Staging](staging-readme.md)
 
-* Deploy. [Getting starting with Rails3.x](https://devcenter.heroku.com/articles/rails3)
-  This will use Bundler to install all the dependencies/gems, precompile the assets, etc.
+* Deploy.
+  This will use Bundler to install all the dependencies/gems,
+  precompile the assets, etc. See [Getting starting with Rails3.x](https://devcenter.heroku.com/articles/rails3)
+  for more info on installing Rails apps on Heroku.
 
   1. Deploy master branch
 
        $ git push heroku master
 
-       * Deploy branch named 'heroku_branch'
+       * *(Only if not deploying master branch)* Deploy branch named 'heroku_branch'
 
           $ git push heroku heroku_branch:master
 

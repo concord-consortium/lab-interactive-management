@@ -16,4 +16,4 @@ Example:
 
         This will *ONLY* install a tar file's content, located in
         tmp/lab.tar.gz, in the public directory.
-        $ rails generate lab:update_lab --no-downlaod
+        $ rails generate lab:update_lab --no-download
