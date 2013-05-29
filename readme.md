@@ -74,6 +74,8 @@ Deployment
 
        $ heroku apps:create my-lab-im
 
+* [Deploy to Staging](staging-readme.md)
+
 * Deploy. [Getting starting with Rails3.x](https://devcenter.heroku.com/articles/rails3)
   This will use Bundler to install all the dependencies/gems, precompile the assets, etc.
 
