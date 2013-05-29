@@ -2,7 +2,7 @@ class InteractivesController < ApplicationController
   #TODO: remove when we have authentication
   skip_before_filter :verify_authenticity_token
 
-  before_action :set_interactive, only: [:show, :update, :destroy]
+  before_action :set_interactive, only: [:show, :destroy]
   before_action :set_group, only: [:create]
 
   def index
@@ -51,30 +51,22 @@ class InteractivesController < ApplicationController
       render :json => {:errors => @interactive.error}, :status => :forbidden
     end
   end
-  # def create
-  #   group = Group.find(params[:interactive][:groupKey])
-  #   create_path_and_id(group)
 
-  #   @interactive = Interactive.new(params[:interactive])
-  #   @interactive.group = group
+  def update
+    # TODO: determine we should ONLY send the interactive path, not id here.
+    @interactive = Interactive.find_by_path(params[:interactive].delete('id'))
 
-  #   interactive_model = create_interactive_model
-  #   @interactive.interactive_models << interactive_model
+    if @interactive.group.path != params[:interactive][:groupKey]
+      @interactive.group = Group.find_by_path(params[:interactive][:groupKey])
+      params[:interactive][:path] = "interactives_#{params[:interactive][:groupKey]}_#{params[:interactive][:title]}".gsub('$','_').gsub(/^_/,"").gsub('.json','')
+    end
 
-  #   if @interactive.save
-  #     render({
-  #       :json     => presenter(@interactive).runtime_properties,
-  #       :status   => :created,
-  #       :location => interactive_path(@interactive)
-  #     })
-  #   else
-  #     render({
-  #       :json => @interactive.errors.messages,
-  #       :status => :unprocessable_entity
-  #     })
-  #   end
-  # end
-
+    if @interactive.update_attributes(params[:interactive].permit!)
+      render :json => presenter
+    else
+      render :json => {:errors => @interactive.error}, :status => :forbidden
+    end
+  end
   # def update
   #   @interactive = Interactive.find(params[:id])
 
@@ -201,4 +193,8 @@ class InteractivesController < ApplicationController
     params[:interactive][:path] = "interactives_#{group_path}_#{title}".gsub('$','_').gsub(/^_/,"").gsub('.json','')
     params[:interactive].permit!
   end
+
+  def update_interactive_models
+  end
+
 end
