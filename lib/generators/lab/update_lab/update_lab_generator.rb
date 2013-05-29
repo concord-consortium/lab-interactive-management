@@ -1,22 +1,24 @@
 module Lab
   module Generators
     class UpdateLabGenerator < Rails::Generators::Base
-      # source_root File.expand_path('../templates', __FILE__)
+      # need this to pick up the USAGE file in this directory
+      source_root File.expand_path('../templates', __FILE__)
+
       argument :tar_url, :type => :string, :default => 'http://localhost:3000'
-      # class_option :tar_url, :type => :string, :default => 'http://localhost:3000', :desc => "URL for the tar file"
+      class_option :tar_dir, :type => :string, :default => "#{Rails.root}/tmp", :desc => "Directory that contains the lab framework archive"
+      class_option :download, :type => :boolean, :default => true, :desc => "Download lab framework archive"
 
-      # https://lab-staging.s3.amazonaws.com/lab_ab633d2.tar.gz
-      desc "update_from_tar"
-      def update_from_tar
-        # puts "tar_url = #{tar_url}"
-        # puts "options = #{options}"
-        tmp_dir = "#{Rails.root}/tmp"
+      def update_lab_generator
         dest_dir = Rails.public_path
-        FileUtils.mkdir_p(tmp_dir)
-
-        tarball = get_tarfile(tmp_dir)
+        if options['download']
+          puts "Lab framework archive will be downloaded to #{options['tar_dir']}"
+          FileUtils.mkdir_p(options['tar_dir'])
+          tarball = get_tarfile(options['tar_dir'])
+        else
+          tarball = "#{options['tar_dir']}/lab.tar.gz"
+        end
         # tarball = "tmp/lab.tar.gz"
-        puts "Unpack the tar file into #{dest_dir} directory"
+        puts "Unpack the tar file #{tarball} into #{dest_dir} directory"
         %x{  tar xf #{ tarball}  -C #{Rails.public_path} }
         name = ""
 
@@ -39,14 +41,15 @@ module Lab
 
       private
 
-      def get_tarfile(tmp_dir)
+      def get_tarfile(tar_dir)
         # tarball_url = 'http://github.com/concord-consortium/lab/tarball/gh-pages/'
-        tarball = "#{tmp_dir}/lab.tar.gz"
+        tarball = "#{tar_dir}/lab.tar.gz"
         puts "Download tar file from #{tar_url}"
         %x{ curl -L #{tar_url} > #{tarball} }
         puts "Saved tar file in #{tarball}"
         tarball
       end
+
     end
   end
 end
