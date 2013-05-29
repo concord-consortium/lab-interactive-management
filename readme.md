@@ -62,7 +62,7 @@ Interactives can be imported into the DB in two ways.
 
 - From the local filesystem. **Prerequisite: Import Lab framework files **:
 
-       $ rails generate lab:import_interactives interactives.json
+       $ rails generate lab:import_interactives
 
 Deployment
 ----------
