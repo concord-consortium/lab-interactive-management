@@ -14,3 +14,12 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore all files that are created by the lab framework
+# and installed in the public dir
+/public/*
+
+!/public/400.html
+!/public/422.html
+!/public/500.html
+!/public/robots.txt
