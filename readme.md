@@ -26,11 +26,30 @@ Import Lab framework files
 The lab framework provides a set of interactive files that **MUST** be
 imported. These files can be imported from a Lab framework release or from an archive that is remotely available at a URL.
 
-- From a remote archive created by the lab framework. *Note: the name of the archive includes the git commit hash of these files from the lab framework, ab633d2.*:
+- From a remote archive created by the lab framework at git commit 'a7a7bb0'. *Note: the name of the archive includes the git commit short SHA, hash, of these files from the lab framework, a7a7bb0*:
 
-       $ rails generate lab:update\_lab https://lab-staging.s3.amazonaws.com/lab_ab633d2.tar.gz
+       $ rails generate lab:update_lab http://lab.concord.org/version/a7a7bb0.tar.gz
 
-- From a lab framework release *TODO: not implemented*:
+- From a lab framework release. Lab framework release 0.5.2 here:
+
+       $ rails generate lab:update_lab http://lab.concord.org/version/0.5.2.tar.gz
+
+
+Shutterbug Configuration
+---------------
+ [Shutterbug](https://github.com/concord-consortium/shutterbug) is a Ruby Gem that
+ provides a rack utility that will create and save images (pngs) for a part of your web page's
+ current dom. See [Shutterbug](https://github.com/concord-consortium/shutterbug) for more info.
+
+    ...
+    # adjust Shutterbug's configuration in config.ru
+    use Shutterbug::Rackapp do |config|
+      config.resource_dir     = "/Users/tdyer/tmp"
+      config.uri_prefix       = "http://shutterbug.herokuapp.com"
+      config.path_prefix      = "/shutterbug"
+      config.phantom_bin_path = "/usr/local/bin/phantomjs"
+    end
+    ...
 
 Code Generation
 ---------------
