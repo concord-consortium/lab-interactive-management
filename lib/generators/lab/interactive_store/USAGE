@@ -1,12 +1,12 @@
 Description:
-    This will generate a module, InteractiveStore, that should be
+    This will generate a module, InteractiveStore, that is
     included into the Interactive Rails model. This module will use
     ActiveRecord::Store,
     http://api.rubyonrails.org/classes/ActiveRecord/Store.html, to
-    provide a wrapper around the serialized attributes/propeties that
+    provide a wrapper around the serialized attributes/properties that
     define an interactive.
 
-    The module will parse interactive metadata provided by the Next
+    The generator will parse interactive metadata provided by the Next
     Gen MW, lab, framework and generate the correct set of serialized
     attributes for the Interactive Rails model.
 
