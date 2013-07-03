@@ -34,6 +34,13 @@ imported. These files can be imported from a Lab framework release or from an ar
 
        $ rails generate lab:update_lab http://lab.concord.org/version/0.5.2.tar.gz
 
+- From a lab framework archive file located at tmp/lab.tar.gz. *Typically only used for development*:
+
+       $ rails generate lab:update_lab --no-download
+
+- To get help for this lab:update_lab rails generator:
+
+       $ rails generate lab:update_lab --help
 
 Shutterbug Configuration
 ---------------
@@ -58,8 +65,11 @@ framework we'll need to update a small amount of code in LabIM. There
 are two rails generators that make these updates.
 
 - To re-generate the metadata for interactives:
-
+     # generate interactive metadata from localhost:3000/lab/lab.json
      $ rails generate lab:interactive_store
+
+     # generate interactive metadata from http://lab.concord.org/lab/lab.json
+     $ rails generate lab:interactive_store http://lab.concord.org
 
 - To re-generate the metadata for md2d models:
 
