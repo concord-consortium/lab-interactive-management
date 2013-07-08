@@ -12,7 +12,11 @@ Description:
 
 
 Example:
-    rails generate md2d_store
+    # generate interactive metadata from public/lab/lab.json
+    rails generate lab:md2d_store
+
+    # generate interactive metadata from http://lab.concord.org/lab/lab.json
+    rails generate lab:md2d_store http://lab.concord.org
 
     This will create:
         app/models/concerns/md2d_store

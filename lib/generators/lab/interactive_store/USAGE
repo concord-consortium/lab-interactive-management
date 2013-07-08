@@ -14,11 +14,11 @@ Description:
 Example:
     # will use the interactive metadata defined in public/lab/lab.json
     # to generate the Interactive model's properties
-    rails generate interactive_store
+    rails generate lab:interactive_store
 
     # will use the interactive metadata defined in http://lab.concord.org/lab/lab.json
     # to generate the Interactive model's properties
-    rails generate interactive_store http://lab.concord.org
+    rails generate lab:interactive_store http://lab.concord.org
 
     This will create a ruby module at:
         app/models/concerns/interactive_store

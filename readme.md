@@ -72,8 +72,11 @@ are two rails generators that make these updates.
      $ rails generate lab:interactive_store http://lab.concord.org
 
 - To re-generate the metadata for md2d models:
-
+     # generate interactive metadata from public/lab/lab.json
      $ rails generate lab:md2d_store
+
+     # generate interactive metadata from http://lab.concord.org/lab/lab.json
+     rails generate lab:md2d_store http://lab.concord.org
 
 Database creation
 -----------------
