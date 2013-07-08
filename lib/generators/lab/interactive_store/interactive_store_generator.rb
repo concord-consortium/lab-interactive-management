@@ -2,7 +2,7 @@ module Lab
   module Generators
     class InteractiveStoreGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
-      argument :source_url, :type => :string, :default => 'http://localhost:3000'
+      argument :source_url, :type => :string, :default => Rails.public_path
       argument :metadata_path, :type => :string, :default => '/lab/lab.json'
 
       # TODO: check that the interactive metadata defined in lab/lab.json is the

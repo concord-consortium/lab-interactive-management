@@ -12,7 +12,7 @@ Description:
 
 
 Example:
-    # will use the interactive metadata defined in http://localhost:3000/lab/lab.json
+    # will use the interactive metadata defined in public/lab/lab.json
     # to generate the Interactive model's properties
     rails generate interactive_store
 
