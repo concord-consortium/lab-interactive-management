@@ -35,7 +35,7 @@ describe Parser::Interactive do
     # the json for this pendulum interactive JSON file
     its(:title) { should == 'Pendulum'}
     its(:path) {should == "interactives_inquiry-space_pendulum_1-pendulum" }
-    its(:groupKey) { should == "inquiry-space/pendulum"}
+    its(:group_key) { should == "inquiry-space/pendulum"}
     its(:subtitle) { should == "Explore some factors that affect the period of a pendulum." }
     its(:about)  do
       should ==  ["Press the play button. Watch the graph to see how the angle of the pendulum changes as it", "swings back and forth. Use the graph to determine the period of the pendulum. Adjust the", "scale by dragging the numbers on the axes. Change each variable – gravity, rod length,", "starting angle and mass – and observe how each one affects the period. Can you explain why?", "Try the damping slider. Does damping change the period?"]
@@ -45,7 +45,7 @@ describe Parser::Interactive do
     # interactive properties defined in the pendulum interactive JSON file
     its(:fontScale) { should == 0.8 }
     its(:models) do
-      should == [{"id"=>"pendulum1$0", "url"=>"imports_legacy-mw-content_converted_inquiry-space_pendulum_pendulum1_0", "viewOptions"=>{"controlButtons"=>"play_reset_step", "gridLines"=>true, "showClock"=>true, "velocityVectors"=>{"length"=>10}}, "modelOptions"=>{"unitsScheme"=>"mks", "timeStepsPerTick"=>167, "timeStep"=>1, "modelSampleRate"=>60}, "onLoad"=>["function resetAngle() {", "  set({startingAngle: get('startingAngle')});", "}", "function stopMotion() {", "  stop();", "  setAtomProperties(1, { vx: 0, vy: 0 });", "}", "onPropertyChange('rodLength', resetAngle);", "onPropertyChange('ballMass', resetAngle);", "onPropertyChange('gravitationalField', resetAngle);", "onPropertyChange('damping', resetAngle);", "onPropertyChange('startingAngle', stopMotion);"]}]
+      should == [{"type" => "md2d", "id"=>"pendulum1$0", "url"=>"imports_legacy-mw-content_converted_inquiry-space_pendulum_pendulum1_0", "viewOptions"=>{"controlButtons"=>"play_reset_step", "gridLines"=>true, "showClock"=>true, "velocityVectors"=>{"length"=>10}}, "modelOptions"=>{"unitsScheme"=>"mks", "timeStepsPerTick"=>167, "timeStep"=>1, "modelSampleRate"=>60}, "onLoad"=>["function resetAngle() {", "  set({startingAngle: get('startingAngle')});", "}", "function stopMotion() {", "  stop();", "  setAtomProperties(1, { vx: 0, vy: 0 });", "}", "onPropertyChange('rodLength', resetAngle);", "onPropertyChange('ballMass', resetAngle);", "onPropertyChange('gravitationalField', resetAngle);", "onPropertyChange('damping', resetAngle);", "onPropertyChange('startingAngle', stopMotion);"]}]
     end
 
     its(:parameters) do
@@ -80,7 +80,7 @@ describe Parser::Interactive do
     it "should create a Md2d with the correct properties" do
       md2d = subject.md2ds.first
       md2d.url.should == "imports_legacy-mw-content_converted_inquiry-space_pendulum_pendulum1_0"
-      md2d.viewOptions.should == {"viewPortWidth"=>5, "viewPortHeight"=>3, "viewPortZoom"=>1, "viewPortX"=>0, "viewPortY"=>0, "backgroundColor"=>"#eeeeee", "showClock"=>true, "markColor"=>"#f8b500", "keShading"=>false, "chargeShading"=>false, "useThreeLetterCode"=>true, "aminoAcidColorScheme"=>"hydrophobicity", "showChargeSymbols"=>true, "showVDWLines"=>false, "VDWLinesCutoff"=>"medium", "showVelocityVectors"=>false, "showForceVectors"=>false, "showAtomTrace"=>false, "images"=>[], "imageMapping"=>{}, "textBoxes"=>[], "xlabel"=>false, "ylabel"=>false, "xunits"=>false, "yunits"=>false, "controlButtons"=>"play", "gridLines"=>false, "atomNumbers"=>false, "enableAtomTooltips"=>false, "enableKeyboardHandlers"=>true, "atomTraceColor"=>"#6913c5", "velocityVectors"=>{"color"=>"#000", "width"=>0.01, "length"=>2}, "forceVectors"=>{"color"=>"#169C30", "width"=>0.01, "length"=>2}}
+      md2d.viewOptions.should == {"viewPortWidth"=>5, "viewPortHeight"=>3, "viewPortZoom"=>1, "viewPortX"=>0, "viewPortY"=>0, "viewPortDrag" => false, "backgroundColor"=>"#eeeeee", "showClock"=>true, "markColor"=>"#f8b500", "keShading"=>false, "chargeShading"=>false, "useThreeLetterCode"=>true, "aminoAcidColorScheme"=>"hydrophobicity", "showChargeSymbols"=>true, "showVDWLines"=>false, "VDWLinesCutoff"=>"medium", "showVelocityVectors"=>false, "showForceVectors"=>false, "showAtomTrace"=>false, "images"=>[], "imageMapping"=>{}, "textBoxes"=>[], "xlabel"=>false, "ylabel"=>false, "xunits"=>false, "yunits"=>false, "controlButtons"=>"play", "gridLines"=>false, "atomNumbers"=>false, "enableAtomTooltips"=>false, "enableKeyboardHandlers"=>true, "atomTraceColor"=>"#6913c5", "velocityVectors"=>{"color"=>"#000", "width"=>0.01, "length"=>2}, "forceVectors"=>{"color"=>"#169C30", "width"=>0.01, "length"=>2}}
       md2d.gravitationalField.should == 9.8e-8
     end
   end
