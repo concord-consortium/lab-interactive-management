@@ -61,27 +61,32 @@ Shutterbug Configuration
 Code Generation
 ---------------
 As the definitions/metadata of the interactives and models change in the lab
-framework we'll need to update a small amount of code in LabIM. There
-are two rails generators that make these updates.
+framework we'll need to update a small amount of code in LabIM. The
+below two rails generators will make these updates.
 
-- To re-generate the metadata for interactives:
-     # generate interactive metadata from public/lab/lab.json
+- To re-generate the metadata for interactives.
+  - From public/lab/lab.json.
+
      $ rails generate lab:interactive_store
 
-     # generate interactive metadata from http://lab.concord.org/lab/lab.json
+  - From http://lab.concord.org/lab/lab.json.
+
      $ rails generate lab:interactive_store http://lab.concord.org
 
 - To re-generate the metadata for md2d models:
-     # generate interactive metadata from public/lab/lab.json
+  - From public/lab/lab.json.
+
      $ rails generate lab:md2d_store
 
-     # generate interactive metadata from http://lab.concord.org/lab/lab.json
-     rails generate lab:md2d_store http://lab.concord.org
+  - From http://lab.concord.org/lab/lab.json.
+
+     $ rails generate lab:md2d_store http://lab.concord.org
 
 Database creation
 -----------------
-1. $ rake db:create:all
-2. $ rake db:migrate
+1. $ rake db:drop:all
+2. $ rake db:create:all
+3. $ rake db:migrate
 
 Database initialization
 ------------------------

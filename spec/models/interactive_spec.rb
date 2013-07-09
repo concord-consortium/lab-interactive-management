@@ -51,5 +51,12 @@ describe Interactive do
     it "should have the correct gravitational field" do
       subject.md2ds.first.gravitationalField.should == 9.8e-8
     end
+
+    describe "with a generated path" do
+      before(:each) do
+        subject.gen_new_path
+      end
+      its(:path) { should == "interactives_inquiry-space_pendulum_1-pendulum" }
+    end
   end
 end

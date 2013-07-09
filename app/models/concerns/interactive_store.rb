@@ -19,7 +19,7 @@ module InteractiveStore
 
   included do
     # GENERATED
-      store :json_rep, :accessors => [:title, :publicationStatus, :subtitle, :about, :fontScale, :models, :parameters, :outputs, :filteredOutputs, :exports, :components, :layout, :template, :path, :groupKey]
+      store :json_rep, :accessors => [:title, :publicationStatus, :subtitle, :about, :importedFrom, :fontScale, :models, :parameters, :outputs, :filteredOutputs, :exports, :components, :layout, :template]
     # GENERATED
   end
 end
