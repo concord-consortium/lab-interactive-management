@@ -1,13 +1,11 @@
 LabInteractiveManagement::Application.routes.draw do
- scope "/webapp" do
-    namespace :models do
-      resources :md2ds
-    end
-
-    # resources :md2d_models
-    resources :interactives
-    resources :groups
+  namespace :models do
+    resources :md2ds
   end
+
+  # resources :md2d_models
+  resources :interactives
+  resources :groups
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

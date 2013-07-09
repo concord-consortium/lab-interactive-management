@@ -96,8 +96,7 @@ AUTHORING = false;
       buttonHandlersAdded = false,
       interactiveRemoteKeys = ['id', 'from_import', 'groupKey', 'path'],
       modelRemoteKeys = ['id', 'from_import', 'location'],
-      modelButtonHandlersAdded = false,
-      appPath = '/webapp';
+      modelButtonHandlersAdded = false;
 
   function sendGAPageview(){
     // send the pageview to GA
@@ -120,10 +119,6 @@ AUTHORING = false;
     return !isEmbeddablePage();
   }
 
-  function isStaticPage() {
-    return !(document.location.pathname.match(/^\/webapp.*/));
-  }
-
   function isFullPage(){
     return (isNotEmbeddablePage() && !$("#render-in-iframe").is(':checked'));
   }
@@ -133,11 +128,8 @@ AUTHORING = false;
   }
 
   if (!isEmbeddablePage()) {
-    if (isStaticPage()) {
-      interactivesPromise = $.get('interactives.json');
-    }else {
-      interactivesPromise = $.get(appPath + '/interactives.json');
-    }
+
+    interactivesPromise = $.get('interactives.json');
 
     interactivesPromise.done(function(results) {
       if (typeof results === 'string') {
@@ -690,15 +682,7 @@ AUTHORING = false;
         });
       });
     }
-    // All the extra items are sortable
-    // $(".sortable").sortable({
-    //   axis: "y",
-    //   containment: "parent",
-    //   cursor: "row-resize"
-    // });
-    if(!isStaticPage()) {
-      setupCopySaveInteractive();
-    }
+    setupCopySaveInteractive();
   }
 
   function setupIframeListenerFor(iframe, callback) {
@@ -802,14 +786,14 @@ AUTHORING = false;
 
   function remoteSaveInteractive(interactiveState, copyInteractive){
     var httpMethod = 'POST',
-        url = appPath + '/interactives',
+        url = '/interactives',
         newInteractiveState,
         interactiveJSON;
 
     if(!copyInteractive) {
       // updating an interactive
       httpMethod = 'PUT';
-      url = appPath + '/interactives/' + interactiveRemote.id;
+      url = '/interactives/' + interactiveRemote.id;
     }
     // create an interactive to POST/PUT
     // merge the, possibly updated, interactive with the interactive last
@@ -831,7 +815,7 @@ AUTHORING = false;
 
         // redirect to the new interactive
         if (httpMethod == 'POST') {
-          location.hash = "#" + appPath + '/interactives/' + interactiveRemote.path;
+          location.hash = "#/interactives/" + interactiveRemote.path;
           return;
         }
 
@@ -847,7 +831,7 @@ AUTHORING = false;
           document.title = interactive.title;
         }
 
-        document.location.hash = "#" + appPath + '/interactives/' + interactiveRemote.path;
+        document.location.hash = '#/interactives/' + interactiveRemote.path;
       },
       error: function(jqXHR, textStatus, errorThrown) {
         var updateErrors = JSON.parse(jqXHR.responseText),
@@ -871,7 +855,7 @@ AUTHORING = false;
 
     jQuery.ajax({
       type: 'PUT',
-      url: appPath + '/models/md2ds/' + modelRemote.id,
+      url: '/models/md2ds/' + modelRemote.id,
       data: JSON.stringify(modelJSON),
       success: function(results) {
         if (typeof results === 'string') results = JSON.parse(results);
@@ -1066,17 +1050,16 @@ AUTHORING = false;
         onGutterClick: foldFunc
       });
 
-      if (!isStaticPage()){
         // disable save, save as button when interactive json has changed
-        editor.on('change', function(instance, changeObj){
-          if (!editor.isClean() &&
-              (!$saveInteractiveButton.attr('disabled') ||
-               !$saveAsInteractiveButton.attr('disabled')) ){
-            $saveInteractiveButton.attr('disabled', 'disabled');
-            $saveAsInteractiveButton.attr('disabled', 'disabled');
-          }
-        });
-      }
+      editor.on('change', function(instance, changeObj){
+        if (!editor.isClean() &&
+            (!$saveInteractiveButton.attr('disabled') ||
+             !$saveAsInteractiveButton.attr('disabled')) ){
+          $saveInteractiveButton.attr('disabled', 'disabled');
+          $saveAsInteractiveButton.attr('disabled', 'disabled');
+        }
+      });
+
     }
 
     if (!buttonHandlersAdded) {
@@ -1148,9 +1131,7 @@ AUTHORING = false;
       if (!modelButtonHandlersAdded) {
         modelButtonHandlersAdded = true;
 
-        if (!isStaticPage()){
-          setupSaveModel(md2dModel);
-        }
+        setupSaveModel(md2dModel);
 
         $updateModelButton.on('click', function() {
           try {

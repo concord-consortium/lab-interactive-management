@@ -18,7 +18,7 @@ class InteractivesController < ApplicationController
 
         interactives = Interactive.all.map do |i|
           {
-            'id' => i.path, 'title' => i.title, 'path' => "webapp/interactives/#{i.path}", 'groupKey' => i.group_key,
+            'id' => i.path, 'title' => i.title, 'path' => "interactives/#{i.path}", 'groupKey' => i.group_key,
             'subtitle' => i.subtitle, 'about' => i.about, 'publicationStatus' => i.publicationStatus,
             'location' =>   url_helper.interactive_path(i)
           }
