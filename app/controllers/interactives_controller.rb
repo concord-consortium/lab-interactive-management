@@ -61,6 +61,7 @@ class InteractivesController < ApplicationController
       params[:interactive][:path] = "interactives_#{params[:interactive][:groupKey]}_#{params[:interactive][:title]}".gsub('$','_').gsub(/^_/,"").gsub('.json','')
     end
 
+    params[:interactive][:group_key] = params[:interactive].delete('groupKey')
     if @interactive.update_attributes(params[:interactive].permit!)
       render :json => presenter
     else
@@ -188,7 +189,8 @@ class InteractivesController < ApplicationController
 
   def new_interactive_params
     params[:interactive].delete('id')
-    group_path = params[:interactive][:groupKey]
+    group_path = params[:interactive].delete('groupKey')
+    params[:interactive][:group_key] = group_path
     title = params[:interactive][:title]
     params[:interactive][:path] = "interactives_#{group_path}_#{title}".gsub('$','_').gsub('/',"_")
     params[:interactive].permit!
