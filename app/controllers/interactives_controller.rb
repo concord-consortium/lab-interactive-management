@@ -18,7 +18,7 @@ class InteractivesController < ApplicationController
 
         interactives = Interactive.all.map do |i|
           {
-            'id' => i.path, 'title' => i.title, 'path' => "webapp/interactives/#{i.path}", 'groupKey' => i.group.path,
+            'id' => i.path, 'title' => i.title, 'path' => "webapp/interactives/#{i.path}", 'groupKey' => i.group_key,
             'subtitle' => i.subtitle, 'about' => i.about, 'publicationStatus' => i.publicationStatus,
             'location' =>   url_helper.interactive_path(i)
           }
@@ -137,7 +137,7 @@ class InteractivesController < ApplicationController
 
   def set_interactive
     path = params[:id] || params[:interactive][:id]
-    @interactive = Interactive.find_by_path(path)
+    @interactive = Interactive.where(:path => path).first
   end
 
   def presenter

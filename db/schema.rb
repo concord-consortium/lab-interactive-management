@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709155201) do
+ActiveRecord::Schema.define(version: 20130709172728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20130709155201) do
     t.datetime "updated_at"
     t.boolean  "from_import", default: false
     t.string   "path"
+    t.string   "group_key"
   end
 
   add_index "interactives", ["group_id"], name: "index_interactives_on_group_id", using: :btree

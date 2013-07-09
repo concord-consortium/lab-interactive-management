@@ -6,12 +6,6 @@ module InteractiveStore
   extend ActiveSupport::Concern
 
   module ClassMethods
-    # find the model where the json_rep['path'] == path
-    def find_by_path(path)
-      find do |g|
-        g if g.json_rep['path'] == path
-      end
-    end
   end
 
   module InstanceMethods

@@ -13,7 +13,7 @@ module Parser
     # create the Interactive Rails model
     def create_model
       # TODO: get the revision from the interactive JSON file
-      interactive = ::Interactive.new(:revision => '0.0.1',:from_import => true)
+      interactive = ::Interactive.new(:revision => '0.0.1',:from_import => true, :group_key => interactive_hash['groupKey'])
 
       # read the contents of one interactive json file
       puts "Reading Interactive JSON from #{uri}/#{interactive_hash['path']}"
