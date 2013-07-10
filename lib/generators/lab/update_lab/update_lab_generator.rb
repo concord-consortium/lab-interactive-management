@@ -9,18 +9,19 @@ module Lab
       class_option :download, :type => :boolean, :default => true, :desc => "Download lab framework archive"
 
       def update_lab_generator
-        dest_dir = Rails.public_path
+        dest_dir = "#{options['tar_dir']}/lab_files"
+        FileUtils.rm_rf(dest_dir)
+        FileUtils.mkdir_p(dest_dir)
         if options['download']
           puts "Lab framework archive will be downloaded to #{options['tar_dir']}"
-          FileUtils.mkdir_p(options['tar_dir'])
           tarball = get_tarfile(options['tar_dir'])
         else
           tarball = "#{options['tar_dir']}/lab.tar.gz"
         end
         # tarball = "tmp/lab.tar.gz"
         puts "Unpack the tar file #{tarball} into #{dest_dir} directory"
-        %x{  tar xf #{ tarball}  -C #{Rails.public_path} }
-        name = ""
+        %x{  tar xf #{tarball}  -C #{dest_dir} }
+        # name = ""
 
         # Gem::Package::TarReader.new(Zlib::GzipReader.open(tarball)).each do |entry|
         #   #strip root directory
