@@ -19,31 +19,34 @@ module Lab
           tarball = "#{options['tar_dir']}/lab.tar.gz"
         end
         # tarball = "tmp/lab.tar.gz"
-        puts "Unpack the tar file #{tarball} into #{dest_dir} directory"
+        puts "Unpack the tar file \n\t#{tarball}\n\t into\n\t#{dest_dir} directory"
         %x{  tar xf #{tarball}  -C #{dest_dir} }
-        # name = ""
+        # Bad tar file, bye
+        exit(false) unless $?.success?
 
-        # Gem::Package::TarReader.new(Zlib::GzipReader.open(tarball)).each do |entry|
-        #   #strip root directory
-        #   name = entry.full_name.split('/')[1..-1].join('/')
-        #   if name && name.size > 1
-        #     if entry.directory?
-        #       puts "Creating directory #{name}"
-        #       FileUtils.mkdir_p("#{dest_dir}/#{name}")
-        #     elsif entry.file?
-        #       puts "Creating file #{name}"
-        #       File.open("#{dest_dir}/#{name}", 'wb') do |f|
-        #         f.write(entry.read)
-        #       end
-        #     end
-        #   end
-        # end
+
+        # cd to dir containing downloaded files, tmp/lab_files
+        Dir.chdir(dest_dir)
+
+        # TODO: may not need all of these, or may may web app specific version of these
+        # copy the lab top level html and css files
+        # NOTE: don't cp application.js
+        Dir.glob("*.{html,css}") do |filename|
+          puts "Copying lab file:\n\t #{dest_dir}/#{filename} into the public directory"
+          FileUtils.cp("#{dest_dir}/#{filename}", Rails.public_path)
+        end
+
+        # copy the lab directories
+        %w{ lab resources vendor }.each do |dir|
+          puts "Copying lab directory:\n\t#{dest_dir}/#{dir} into the public directory"
+          FileUtils.cp_r("#{dest_dir}/#{dir}", Rails.public_path)
+        end
+
       end
 
       private
 
       def get_tarfile(tar_dir)
-        # tarball_url = 'http://github.com/concord-consortium/lab/tarball/gh-pages/'
         tarball = "#{tar_dir}/lab.tar.gz"
         FileUtils.rm_rf(tarball)
         puts "Download tar file from #{tar_url}"
