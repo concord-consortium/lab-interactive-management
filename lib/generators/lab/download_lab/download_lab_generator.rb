@@ -1,6 +1,6 @@
 module Lab
   module Generators
-    class UpdateLabGenerator < Rails::Generators::Base
+    class DownloadLabGenerator < Rails::Generators::Base
       # need this to pick up the USAGE file in this directory
       source_root File.expand_path('../templates', __FILE__)
 
@@ -8,7 +8,7 @@ module Lab
       class_option :tar_dir, :type => :string, :default => "#{Rails.root}/tmp", :desc => "Directory that contains the lab framework archive"
       class_option :download, :type => :boolean, :default => true, :desc => "Download lab framework archive"
 
-      def update_lab_generator
+      def download_lab_generator
         dest_dir = "#{options['tar_dir']}/lab_files"
         FileUtils.rm_rf(dest_dir)
         FileUtils.mkdir_p(dest_dir)
@@ -45,6 +45,7 @@ module Lab
       def get_tarfile(tar_dir)
         # tarball_url = 'http://github.com/concord-consortium/lab/tarball/gh-pages/'
         tarball = "#{tar_dir}/lab.tar.gz"
+        FileUtils.rm_rf(tarball)
         puts "Download tar file from #{tar_url}"
         %x{ curl -L #{tar_url} > #{tarball} }
         puts "Saved tar file in #{tarball}"

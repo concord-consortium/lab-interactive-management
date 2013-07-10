@@ -1,7 +1,7 @@
 Description:
         The lab framework provides a set of interactive files that
-        **MUST** be imported to this app. These files
-        can be imported from a Lab framework release or from an
+        can be to this app. These files
+        can be downloaded from a Lab framework release or from an
         archive that is remotely available at a URL.
 
         This will create a *large* set of files in the this project.
@@ -10,8 +10,8 @@ Example:
         This will download a tar file that contains the lab framework
         files and install locally. Notice that it's name contains the lab framework
         commit hash when the tar file was built.
-        $ rails generate lab:update_lab https://lab-staging.s3.amazonaws.com/lab_ab633d2.tar.gz
+        $ rails generate lab:download_lab http://lab.dev.concord.org/version/2666763.tar.gz
 
         This will *ONLY* install a tar file's content, located in
-        tmp/lab.tar.gz.
+        tmp/lab.tar.gz into tmp/lab_files.
         $ rails generate lab:update_lab --no-download

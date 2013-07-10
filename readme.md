@@ -21,26 +21,27 @@ All of these dependencies are installed and managed by [Bundler](http://gembundl
 - PostgreSQL
 - *See Gemfile*
 
-Import Lab framework files
+Dowload Lab framework files
 ----------------------------------
-The lab framework provides a set of interactive files that **MUST** be
-imported. These files can be imported from a Lab framework release or from an archive that is remotely available at a URL.
+The lab framework provides a set of files that can be downloaded.
+These files can be downloaded from a Lab framework release or archive that is remotely available at a URL.
+These files can be used in the below Code Generation and Database initialization steps.
 
-- From a remote archive created by the lab framework at git commit 'a7a7bb0'. *Note: the name of the archive includes the git commit short SHA, hash, of these files from the lab framework, a7a7bb0*:
+- From a remote archive created by the lab framework at git commit '2666763'. *Note: the name of the archive includes the git commit short SHA, hash, from the lab framework, 2666763*:
 
-       $ rails generate lab:update_lab http://lab.concord.org/version/a7a7bb0.tar.gz
+       $ rails generate lab:download_lab http://lab.dev.concord.org/version/2666763.tar.gz
 
 - From a lab framework release. Lab framework release 0.5.2 here:
 
-       $ rails generate lab:update_lab http://lab.concord.org/version/0.5.2.tar.gz
+       $ rails generate lab:download_lab http://lab.concord.org/version/0.5.2.tar.gz
 
-- From a lab framework archive file located at tmp/lab.tar.gz. *Typically only used for development*:
+- From a lab framework archive file located at tmp/lab.tar.gz. *This doesn't download. It just updates contents of the tmp/lab_files dir from tmp/lab.tar.gz. Typically only used for development*:
 
-       $ rails generate lab:update_lab --no-download
+       $ rails generate lab:download_lab --no-download
 
-- To get help for this lab:update_lab rails generator:
+- To get help for this lab:download_lab rails generator:
 
-       $ rails generate lab:update_lab --help
+       $ rails generate lab:download_lab --help
 
 Shutterbug Configuration
 ---------------

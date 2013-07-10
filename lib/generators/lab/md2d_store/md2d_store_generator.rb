@@ -2,7 +2,7 @@ module Lab
   module Generators
     class Md2dStoreGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
-      argument :source_url, :type => :string, :default => Rails.public_path
+      argument :source_url, :type => :string, :default => "#{Rails.root}/tmp/lab_files"
       argument :metadata_path, :type => :string, :default => '/lab/lab.json'
 
       def generate_store
