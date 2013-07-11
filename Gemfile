@@ -40,6 +40,8 @@ gem 'thin'
 
 gem 'shutterbug'
 
+gem 'rack-proxy'
+
 def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ && require_as
 end

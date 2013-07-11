@@ -92,6 +92,8 @@ GEM
       binding_of_caller (>= 0.7)
       pry (~> 0.9.11)
     rack (1.5.2)
+    rack-proxy (0.4.0)
+      rack
     rack-rewrite (1.3.3)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -189,6 +191,7 @@ DEPENDENCIES
   pry
   pry-nav
   pry-stack_explorer
+  rack-proxy
   rack-rewrite
   rails (= 4.0.0.rc1)
   rb-fsevent (~> 0.9.3)

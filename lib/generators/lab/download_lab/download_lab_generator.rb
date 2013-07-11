@@ -15,9 +15,12 @@ module Lab
         if options['download']
           puts "Lab framework archive will be downloaded to #{options['tar_dir']}"
           tarball = get_tarfile(options['tar_dir'])
+          puts "Generating the settings to proxy to the backend lab server"
+          generate_lab_settings(tar_url)
         else
           tarball = "#{options['tar_dir']}/lab.tar.gz"
         end
+
         # tarball = "tmp/lab.tar.gz"
         puts "Unpack the tar file \n\t#{tarball}\n\t into\n\t#{dest_dir} directory"
         %x{  tar xf #{tarball}  -C #{dest_dir} }
@@ -45,6 +48,20 @@ module Lab
       end
 
       private
+
+      # Generate the file that define the remote lab server
+      # This file is used by the Lab Proxy class
+      def generate_lab_settings(tar_url)
+        # typical lab server URL
+        # http://lab.dev.concord.org/version/2666763.tar.gz')
+        uri = URI.parse(tar_url)
+        lab_settings = {:host => uri.host, :port => uri.port }
+        # version in above url
+        lab_settings[:path_prefix] = uri.path.split('/')[1]
+        # lab release version of git short SHA, 2666763
+        lab_settings[:release_number] = uri.path.split('/')[2].split('.')[0]
+        template("lab_host_settings.erb", "lib/rack/lab_host_settings.rb", lab_settings)
+      end
 
       def get_tarfile(tar_dir)
         tarball = "#{tar_dir}/lab.tar.gz"

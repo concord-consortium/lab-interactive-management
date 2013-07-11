@@ -25,8 +25,7 @@ module LabInteractiveManagement
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # lets try to use the concerns dirs in app/models, ..
-    # config.autoload_paths += Dir["#{ config.root}/lib", "#{config.root}/lib/**/"]
+    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
 
     config.generators do |g|
       g.test_framework :rspec
@@ -36,5 +35,9 @@ module LabInteractiveManagement
 
     # for heroku
     config.assets.initialize_on_precompile = false
+
+    # Proxy to the lab framework server
+    config.middleware.use 'ProxyToLab'
+
   end
 end
