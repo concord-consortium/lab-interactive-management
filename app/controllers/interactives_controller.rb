@@ -178,7 +178,8 @@ class InteractivesController < ApplicationController
 
   def update_models
     params[:interactive][:models].each do |model_hash|
-      md2d = Md2d.find_by_url(model_hash['id'])
+      model_url = model_hash['url'].split('/').last
+      md2d = Md2d.find_by_url(model_url)
       @interactive.md2ds << md2d
       # # these model options should ONLY be stored in the interactive
       # params[:interactive][:viewOptions] = model_hash.delete('viewOptions')
