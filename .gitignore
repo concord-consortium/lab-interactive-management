@@ -17,7 +17,7 @@
 
 # Ignore all files that are created by the lab framework
 # and installed in the public dir
-/public/*
+# /public/*
 
 !/public/400.html
 !/public/422.html
