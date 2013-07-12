@@ -95,7 +95,7 @@ Interactives can be imported into the DB in two ways.
 
 - From a remote version of LabIM at a URL:
 
-       $ rails generate lab:import_interactives http://lab3.dev.concord.org
+       $ rails generate lab:import_interactives http://lab.dev.concord.org/version/2666763
 
 - From the local filesystem. **Prerequisite: Import Lab framework files **:
 
