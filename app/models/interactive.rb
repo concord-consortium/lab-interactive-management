@@ -5,7 +5,7 @@ class Interactive < ActiveRecord::Base
   belongs_to :group
 
   has_many :interactive_models
-  has_many :md2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Md2d'
+  has_many :md2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Md2d', :order => :id
 
   def gen_new_path
     self.path = json_rep['path'].gsub("/","_").gsub('$','_').gsub(/^_/,"").gsub('.json','')

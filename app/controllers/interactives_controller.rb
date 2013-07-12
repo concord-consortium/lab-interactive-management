@@ -164,7 +164,7 @@ class InteractivesController < ApplicationController
       {
         'type' => md2d.json_rep['type'],
         'url' => url_helper.models_md2d_path(md2d.url)[1..-1],
-        'id' => md2d.url,
+        'id' => json_rep_model['id'],
         # not all of viewOptions are needed for the interactive
         # return what was in the JSON file for this interactive
         'viewOptions' => json_rep_model['viewOptions'],
