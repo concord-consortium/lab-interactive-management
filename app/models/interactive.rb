@@ -5,7 +5,11 @@ class Interactive < ActiveRecord::Base
   belongs_to :group
 
   has_many :interactive_models
+  has_many :energy2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Energy2d', :order => :id
   has_many :md2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Md2d', :order => :id
+  has_many :sensors, :through => :interactive_models, :source => 'model',  :source_type => 'Sensor', :order => :id
+  has_many :signal_generators, :through => :interactive_models, :source => 'model',  :source_type => 'SignalGenerator', :order => :id
+  has_many :solar_systems, :through => :interactive_models, :source => 'model',  :source_type => 'SolarSystem', :order => :id
 
   def gen_new_path
     self.path = json_rep['path'].gsub("/","_").gsub('$','_').gsub(/^_/,"").gsub('.json','')

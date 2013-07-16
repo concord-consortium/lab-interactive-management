@@ -2,6 +2,13 @@
 require 'spec_helper'
 WebMock.allow_net_connect!
 
+############################
+# THIS TEST ASSUMES THAT INTERACTIVE AND MODELS JSON FILES ARE
+# AVAILABLE AT localhost:3000
+# in the lab repo run:
+# bin/rackup config.ru -p 3000
+#############################
+
 describe 'parsing the interactives.json file' do
 
   before(:all) do

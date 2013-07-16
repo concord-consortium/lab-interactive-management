@@ -33,9 +33,7 @@ module Parser
 
       interactive.json_rep['models'].each do |model_hash|
         begin
-          p = Md2d.new(self.uri, model_hash)
-          md2d_model = p.create_model
-          interactive.md2ds << md2d_model
+          create_model_type(model_hash, interactive)
         rescue OpenURI::HTTPError => e
           # problem getting the interactive json file via HTTP
           puts "WARNING: #{e.message}"
@@ -49,6 +47,34 @@ module Parser
       interactive.gen_new_model_paths
       interactive.save!
       interactive
+    end
+
+    def create_model_type(model_hash, interactive)
+      # Parser of all of the model types
+      p = Parser::Model.new(self.uri, model_hash)
+
+      case model_hash['type']
+      when 'energy2d'
+        energy_model = ::Energy2d.new(:revision => '0.0.1', :from_import => true)
+        p.create_model(energy_model)
+        interactive.energy2ds << energy_model
+      when 'md2d'
+        md2d_model = ::Md2d.new(:revision => '0.0.1', :from_import => true)
+        p.create_model(md2d_model)
+        interactive.md2ds << md2d_model
+      when 'sensor'
+        sensor_model = ::Sensor.new(:revision => '0.0.1', :from_import => true)
+        p.create_model(sensor_model)
+        interactive.sensors << sensor_model
+      when 'signal-generator'
+        sg_model = ::SignalGenerator.new(:revision => '0.0.1', :from_import => true)
+        p.create_model(sg_model)
+        interactive.signal_generators << sg_model
+      when 'solar-system'
+        solar_model = ::SolarSystem.new(:revision => '0.0.1', :from_import => true)
+        p.create_model(solar_model)
+        interactive.solar_systems << solar_model
+      end
     end
 
     def  xlate_file_attrs(interactive, file_attr_hash)

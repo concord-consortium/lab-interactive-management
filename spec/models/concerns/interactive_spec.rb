@@ -2,6 +2,13 @@
 require 'spec_helper'
 WebMock.allow_net_connect!
 
+############################
+# THIS TEST ASSUMES THAT INTERACTIVE AND MODELS JSON FILES ARE
+# AVAILABLE AT localhost:3000
+# in the lab repo run:
+# bin/rackup config.ru -p 3000
+#############################
+
 describe Parser::Interactive do
   # This is the hash thats kept in the interactives.json for this pendulum interactive
   let(:interactive_hash) do

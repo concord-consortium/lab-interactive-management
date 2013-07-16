@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709172728) do
+ActiveRecord::Schema.define(version: 20130716200800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "energy2ds", force: true do |t|
+    t.text    "json_rep"
+    t.string  "revision"
+    t.boolean "from_import"
+  end
 
   create_table "groups", force: true do |t|
     t.text     "json_rep"
@@ -53,6 +59,24 @@ ActiveRecord::Schema.define(version: 20130709172728) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "from_import", default: false
+  end
+
+  create_table "sensors", force: true do |t|
+    t.text    "json_rep"
+    t.string  "revision"
+    t.boolean "from_import"
+  end
+
+  create_table "signal_generators", force: true do |t|
+    t.text    "json_rep"
+    t.string  "revision"
+    t.boolean "from_import"
+  end
+
+  create_table "solar_systems", force: true do |t|
+    t.text    "json_rep"
+    t.string  "revision"
+    t.boolean "from_import"
   end
 
 end
