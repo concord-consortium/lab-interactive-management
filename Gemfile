@@ -38,8 +38,6 @@ gem 'rack-rewrite'
 
 gem 'thin'
 
-gem 'shutterbug'
-
 gem 'rack-proxy'
 
 # Required for Rails 4 on heroku
