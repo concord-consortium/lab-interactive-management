@@ -20,7 +20,7 @@ module Lab
           model_properties << ":url"
 
           store_str = "store :json_rep, :accessors => [" << model_properties.uniq.join(', ') << ']'
-          opts = { :model_type => model_type, :class_name => model_type.classify, :store_str => store_str}
+          opts = { :model_type => model_type, :class_name => model_type.underscore.classify, :store_str => store_str}
           class_stuff = template("model_template.erb", "app/models/#{model_type.underscore}.rb", opts)
         end
       end
