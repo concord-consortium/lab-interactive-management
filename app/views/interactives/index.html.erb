@@ -1,0 +1,32 @@
+<h2>Interactives</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Publicaton Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interactives.each do |interactive| %>
+      <tr>
+        <td><%= interactive.title %></td>
+        <td><%= interactive.publicationStatus %></td>
+        <td><%= link_to 'Show', interactive %></td>
+        <td><%= link_to 'Edit', edit_interactive_path(interactive) %></td>
+        <td><%= link_to 'Destroy', interactive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @interactives %>
+
+<br>
+
+
+<%= link_to 'New Interactive', new_interactive_path, :class => 'button
+radius'%>

@@ -43,6 +43,10 @@ gem 'rack-proxy'
 # Required for Rails 4 on heroku
 gem 'rails_12factor', group: :production
 
+gem 'zurb-foundation'
+
+gem 'will_paginate', '~> 3.0'
+
 def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ && require_as
 end

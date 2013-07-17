@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @interactive.title %>
+</p>
+
+<p>
+  <strong>PublicationStatus:</strong>
+  <%= @interactive.publicationStatus %>
+</p>
+
+<%= link_to 'Edit', edit_interactive_path(@interactive) %> |
+<%= link_to 'Back', interactives_path %>

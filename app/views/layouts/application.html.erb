@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>LabInteractiveManagement</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+  	<meta charset="utf-8" />
 
-<%= yield %>
+  	<!-- Uncomment to make IE8 render like IE7 -->
+  	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
 
-</body>
+  	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+  	<%= stylesheet_link_tag    "application" %>
+  	<%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <nav class='top-bar'>
+      <ul class='title-area'>
+        <li class='name'>
+          <h1><%= link_to "Interactives", interactives_path %></h1>
+        </li>
+      </ul>
+      <section class='top-bar-section'>
+        <ul class='right'>
+          <li class='divider'> </li>
+          <li><%= link_to "Browse Interactives", interactives_path %></li>
+          <li class='divider'>
+          <li><%= link_to 'Contact Us' %> </li>
+          </li>
+          <li class='divider'>
+          <li><%= link_to 'Login' %> </li>
+          </li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class='row'>
+      <div class='large-8 columns'>
+        <%= yield %>
+      </div>
+      <div class='large-4 columns'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+    </div>
+
+
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

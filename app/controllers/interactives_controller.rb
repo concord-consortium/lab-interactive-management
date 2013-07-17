@@ -6,7 +6,10 @@ class InteractivesController < ApplicationController
   before_action :set_group, only: [:create]
 
   def index
+    @interactives = Interactive.order('id').page(params[:page]).per_page(20)
+
     respond_to do |format|
+      format.html
       format.json do
 
         groups = Group.all.map do |g|
@@ -32,11 +35,16 @@ class InteractivesController < ApplicationController
   end
 
   def show
-    if @interactive
-      render :json => presenter
-    else
-      render :json => {:errors => "Interactive with path = \"#{params[:id]}\" not found"}, :status => :unprocessable_entity
-      #      render :json 'i', :status => :unprocessable_entity
+    respond_to do |format|
+      format.html
+
+      format.json do
+        if @interactive
+          render :json => presenter
+        else
+          render :json => {:errors => "Interactive with path = \"#{params[:id]}\" not found"}, :status => :unprocessable_entity
+        end
+      end
     end
   end
 
@@ -138,8 +146,10 @@ class InteractivesController < ApplicationController
   end
 
   def set_interactive
+    # javascript sends the path as the id
+    # html sends the id
     path = params[:id] || params[:interactive][:id]
-    @interactive = Interactive.where(:path => path).first
+    @interactive = Interactive.where(:path => path).first || Interactive.find(params[:id])
   end
 
   def presenter
