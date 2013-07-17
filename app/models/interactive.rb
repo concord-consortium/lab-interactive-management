@@ -5,11 +5,11 @@ class Interactive < ActiveRecord::Base
   belongs_to :group
 
   has_many :interactive_models
-  has_many :energy2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Energy2d', :order => :id
-  has_many :md2ds, :through => :interactive_models, :source => 'model',  :source_type => 'Md2d', :order => :id
-  has_many :sensors, :through => :interactive_models, :source => 'model',  :source_type => 'Sensor', :order => :id
-  has_many :signal_generators, :through => :interactive_models, :source => 'model',  :source_type => 'SignalGenerator', :order => :id
-  has_many :solar_systems, :through => :interactive_models, :source => 'model',  :source_type => 'SolarSystem', :order => :id
+  has_many :energy2ds, lambda { order(:id => :asc) }, :through => :interactive_models, :source => 'model',  :source_type => 'Energy2d'
+  has_many :md2ds, lambda { order(:id => :asc) }, :through => :interactive_models, :source => 'model',  :source_type => 'Md2d'
+  has_many :sensors, lambda { order(:id => :asc) }, :through => :interactive_models, :source => 'model',  :source_type => 'Sensor'
+  has_many :signal_generators, lambda { order(:id => :asc) }, :through => :interactive_models, :source => 'model',  :source_type => 'SignalGenerator'
+  has_many :solar_systems, lambda { order(:id => :asc) }, :through => :interactive_models, :source => 'model',  :source_type => 'SolarSystem'
 
   def gen_new_path
     self.path = json_rep['path'].gsub("/","_").gsub('$','_').gsub(/^_/,"").gsub('.json','')
@@ -30,5 +30,9 @@ class Interactive < ActiveRecord::Base
     end
     #ordered_attrs.merge(self.attributes)
     ordered_attrs
+  end
+
+  def model_type
+    self.json_rep['models'].first['type'].underscore
   end
 end

@@ -41,6 +41,7 @@ class InteractivesController < ApplicationController
   end
 
   def create
+
     @interactive = Interactive.new(new_interactive_params)
     @interactive.group = @group
     update_models
@@ -149,7 +150,7 @@ class InteractivesController < ApplicationController
     attrs.delete('json_rep')
     presenter_hash.merge!(attrs)
 
-    #    presenter_hash['path'] = url_helper.interactive_path(@interactive.path)[1..-1]
+    model_type = @interactive.model_type
 
     # Two options here to get a representation of this interactive's models
     # 1 - get the values, in json_rep['models'] that was set from the interactive JSON file
@@ -157,13 +158,13 @@ class InteractivesController < ApplicationController
     # OR
     # 2 - get the values interactive_models associated with this interactive.
     # Doing #2
-    presenter_hash['models'] = @interactive.md2ds.map do |md2d|
+    presenter_hash['models'] = @interactive.send(model_type.pluralize.to_sym).map do |model_instance|
       # find the 'local' hash for this model in the json_rep attribute
-      json_rep_model = @interactive.json_rep['models'].find { |m| m['url'].match(/#{md2d.url}/) }
+      json_rep_model = @interactive.json_rep['models'].find { |m| m['url'].match(/#{model_instance.url}/) }
 
       {
-        'type' => md2d.json_rep['type'],
-        'url' => url_helper.models_md2d_path(md2d.url)[1..-1],
+        'type' => model_instance.json_rep['type'],
+        'url' => url_helper.model_path(:id => model_instance.url, :model_type => model_type)[1..-1],
         'id' => json_rep_model['id'],
         # not all of viewOptions are needed for the interactive
         # return what was in the JSON file for this interactive
@@ -179,12 +180,21 @@ class InteractivesController < ApplicationController
   def update_models
     params[:interactive][:models].each do |model_hash|
       model_url = model_hash['url'].split('/').last
-      md2d = Md2d.find_by_url(model_url)
-      @interactive.md2ds << md2d
-      # # these model options should ONLY be stored in the interactive
-      # params[:interactive][:viewOptions] = model_hash.delete('viewOptions')
-      # params[:interactive][:onLoad] = model_hash.delete('onLoad')
-      # params[:interactive][:modelOptions] = model_hash.delete('modelOptions')
+      model_type = @interactive.model_type
+      case model_type
+      when 'energy2d'
+        @interactive.energy2ds <<  Energy2d.find_by_url(model_url)
+      when 'md2d'
+        @interactive.md2ds << Md2d.find_by_url(model_url)
+      when 'sensor'
+        @interactive.sensors << Sensor.find_by_url(model_url)
+      when 'signal_generator'
+        @interactive.signal_generators << SignalGenerator.find_by_url(model_url)
+      when 'solar_system'
+        @interactive.solar_systems << SolarSystem.find_by_url(model_url)
+      else
+        logger.debug("Cannot find a Model for model_type #{model_type}")
+      end
     end
   end
 
