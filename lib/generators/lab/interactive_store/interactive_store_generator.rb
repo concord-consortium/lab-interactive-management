@@ -13,10 +13,14 @@ module Lab
       def generate_store
         begin
           interactive_properties = find_interactive_meta_properties
-          store_str = "store :json_rep, :accessors => [" << interactive_properties.uniq.join(', ') << ']'
-          puts "store_str:\n#{store_str}"
-          opts = { :store_str => store_str}
+          # use the surus gem to marshall/unmarshall to Ruby Hash and Arrays'
+
+          serialize_str = 'serialize :json_rep, Surus::Hstore::Serializer.new'
+          store_str = "store_accessor :json_rep, #{interactive_properties.uniq.join(', ')}"
+
+          opts = { :serialize_str => serialize_str, :store_str => store_str}
           template("interactive_store.erb", "app/models/concerns/interactive_store.rb", opts)
+
         rescue SocketError, Errno::ECONNREFUSED
           puts "Can't access #{interactives_source}"
         end

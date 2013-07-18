@@ -24,6 +24,7 @@ All of these dependencies are installed and managed by [Bundler](http://gembundl
 Dowload Lab framework files
 ----------------------------------
 The lab framework provides a set of files that can be downloaded.
+*(These downloaded files are contained in an archive, tmp/lab.tar.gz, and a directory, tmp/lab_file)*
 These files can be downloaded from a Lab framework release or archive that is remotely available at a URL.
 These files can be used in the below Code Generation and Database initialization steps.
 
@@ -43,30 +44,14 @@ These files can be used in the below Code Generation and Database initialization
 
        $ rails generate lab:download_lab --help
 
-Shutterbug Configuration
----------------
- [Shutterbug](https://github.com/concord-consortium/shutterbug) is a Ruby Gem that
- provides a rack utility that will create and save images (pngs) for a part of your web page's
- current dom. See [Shutterbug](https://github.com/concord-consortium/shutterbug) for more info.
-
-    ...
-    # adjust Shutterbug's configuration in config.ru
-    use Shutterbug::Rackapp do |config|
-      config.resource_dir     = "/Users/tdyer/tmp"
-      config.uri_prefix       = "http://shutterbug.herokuapp.com"
-      config.path_prefix      = "/shutterbug"
-      config.phantom_bin_path = "/usr/local/bin/phantomjs"
-    end
-    ...
-
 Code Generation
 ---------------
 As the definitions/metadata of the interactives and models change in the lab
-framework we'll need to update a small amount of code in LabIM. The
+framework we'll need to update a small amount of code in this project. The
 below two rails generators will make these updates.
 
 - To re-generate the metadata for interactives.
-  - From public/lab/lab.json.
+  - From tmp/lab_files/lab/lab.json.
 
      $ rails generate lab:interactive_store
 
@@ -74,14 +59,14 @@ below two rails generators will make these updates.
 
      $ rails generate lab:interactive_store http://lab.concord.org
 
-- To re-generate the metadata for md2d models:
-  - From public/lab/lab.json.
+- To re-generate the metadata for all models, energy2d, md2d, solar_system, sensor and signal generator:
+  - From tmp/lab_files/lab/lab.json.
 
-     $ rails generate lab:md2d_store
+     $ rails generate lab:models
 
   - From http://lab.concord.org/lab/lab.json.
 
-     $ rails generate lab:md2d_store http://lab.concord.org
+     $ rails generate lab:models http://lab.concord.org
 
 Database creation
 -----------------
@@ -97,7 +82,7 @@ Interactives can be imported into the DB in two ways.
 
        $ rails generate lab:import_interactives http://lab.dev.concord.org/version/2666763
 
-- From the local filesystem. **Prerequisite: Import Lab framework files **:
+- From the local filesystem, tmp/lab/lab_files. **Prerequisite: Import Lab framework files **:
 
        $ rails generate lab:import_interactives
 

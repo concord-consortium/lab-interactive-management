@@ -2,18 +2,18 @@
 require 'spec_helper'
 WebMock.allow_net_connect!
 
-############################
-# THIS TEST ASSUMES THAT INTERACTIVE AND MODELS JSON FILES ARE
-# AVAILABLE AT localhost:3000
-# in the lab repo run:
-# bin/rackup config.ru -p 3000
-#############################
-
 describe 'parsing the interactives.json file' do
 
   before(:all) do
     #    @parser = Parser::InteractiveList.new('http://lab.dev.concord.org', 'interactives.json')
-    @parser = Parser::InteractiveList.new('http://127.0.0.1:3000', 'interactives.json')
+    ############################
+    # If you set the below to use 127.0.0.1:3000 then this test assumes that
+    # interactive and models json files are available at localhost:3000
+    # in the lab repo run:
+    # bin/rackup config.ru -p 3000
+    #############################
+    # @parser = Parser::InteractiveList.new('http://127.0.0.1:3000', 'interactives.json')
+    @parser = Parser::InteractiveList.new("#{Rails.root}/tmp/lab_files", 'interactives.json')
     @parser.parse
   end
 
@@ -52,6 +52,10 @@ describe 'parsing the interactives.json file' do
 
   describe "pendulum interactive" do
     subject { Group.find_by_path("inquiry-space/pendulum").interactives.first }
+
+    its(:outputs) do
+      should ==  [{"name"=>"currentAngle", "unitAbbreviation"=>"°", "label"=>"Angle", "value"=>["var a0 = getAtomProperties(0),", "    a1 = getAtomProperties(1);", "return Math.atan2(-Math.abs(a1.y-a0.y), a1.x-a0.x) * rad2deg + 90;"]}]
+    end
 
     it "should have the correct attributes" do
       # contained in the interactives.json file

@@ -47,6 +47,9 @@ gem 'zurb-foundation'
 
 gem 'will_paginate', '~> 3.0'
 
+# gem to allow saving of Ruby Hash/Array to HStore
+gem 'surus', :git => 'git://github.com/JackC/surus.git', :branch => 'rails4'
+
 def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ && require_as
 end

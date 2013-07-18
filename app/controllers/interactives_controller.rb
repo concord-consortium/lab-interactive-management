@@ -34,6 +34,28 @@ class InteractivesController < ApplicationController
     end
   end
 
+  # works with old interface/application.js
+  # def index
+  #   groups = Group.all.map do |g|
+  #     {
+  #       'id' =>  g.path, 'path' =>  g.path, 'name' => g.name, 'category' => g.category,
+  #       'location' => url_helper.group_path(g)
+  #     }
+  #   end
+
+  #   interactives = Interactive.all.map do |i|
+  #     {
+  #       'id' => i.path, 'title' => i.title, 'path' => "interactives/#{i.path}", 'groupKey' => i.group_key,
+  #       'subtitle' => i.subtitle, 'about' => i.about, 'publicationStatus' => i.publicationStatus,
+  #       'location' =>   url_helper.interactive_path(i)
+  #     }
+  #   end
+  #   render :json => {
+  #     'interactives'  => interactives,
+  #     'groups'        => groups
+  #   }
+  # end
+
   def show
     respond_to do |format|
       format.html
@@ -47,6 +69,15 @@ class InteractivesController < ApplicationController
       end
     end
   end
+
+  # works with old interface/application.js
+  # def show
+  #   if @interactive
+  #     render :json => presenter
+  #   else
+  #     render :json => {:errors => "Interactive with path = \"#{params[:id]}\" not found"}, :status => :unprocessable_entity
+  #   end
+  # end
 
   def create
 
