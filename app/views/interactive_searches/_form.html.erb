@@ -1,0 +1,28 @@
+<%= form_for @interactive_search do |f| %>
+  <div class="field">
+    <%= f.label :group_id %>
+    <%= f.collection_select :group_name, Group.order(:name), :name, :name, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :group_category %>
+    <%= f.collection_select :group_category, Group.select(:category).distinct, :category, :category, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :publicationStatus, 'Publication Status' %>
+    <%= f.select(:publicationStatus, @publication_statuses, { :include_blank => true }) %>
+  </div>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :subtitle %>
+    <%= f.text_field :subtitle %>
+  </div>
+  <div class="field">
+    <%= f.label :about %>
+    <%= f.text_field :about %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>

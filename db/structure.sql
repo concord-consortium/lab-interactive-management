@@ -79,10 +79,12 @@ ALTER SEQUENCE energy2ds_id_seq OWNED BY energy2ds.id;
 
 CREATE TABLE groups (
     id integer NOT NULL,
-    json_rep text,
     revision text,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    name character varying(255),
+    path character varying(255),
+    category character varying(255)
 );
 
 
@@ -136,6 +138,42 @@ CREATE SEQUENCE interactive_models_id_seq
 --
 
 ALTER SEQUENCE interactive_models_id_seq OWNED BY interactive_models.id;
+
+
+--
+-- Name: interactive_searches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE interactive_searches (
+    id integer NOT NULL,
+    title character varying(255),
+    subtitle character varying(255),
+    about character varying(255),
+    "publicationStatus" character varying(255),
+    group_name character varying(255),
+    group_category character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: interactive_searches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE interactive_searches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: interactive_searches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE interactive_searches_id_seq OWNED BY interactive_searches.id;
 
 
 --
@@ -334,6 +372,13 @@ ALTER TABLE ONLY interactive_models ALTER COLUMN id SET DEFAULT nextval('interac
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY interactive_searches ALTER COLUMN id SET DEFAULT nextval('interactive_searches_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY interactives ALTER COLUMN id SET DEFAULT nextval('interactives_id_seq'::regclass);
 
 
@@ -387,6 +432,14 @@ ALTER TABLE ONLY groups
 
 ALTER TABLE ONLY interactive_models
     ADD CONSTRAINT interactive_models_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: interactive_searches_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY interactive_searches
+    ADD CONSTRAINT interactive_searches_pkey PRIMARY KEY (id);
 
 
 --
@@ -501,3 +554,7 @@ INSERT INTO schema_migrations (version) VALUES ('20130718162813');
 INSERT INTO schema_migrations (version) VALUES ('20130718162925');
 
 INSERT INTO schema_migrations (version) VALUES ('20130718164201');
+
+INSERT INTO schema_migrations (version) VALUES ('20130719182715');
+
+INSERT INTO schema_migrations (version) VALUES ('20130719185700');

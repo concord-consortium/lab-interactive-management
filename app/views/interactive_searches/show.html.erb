@@ -1,0 +1,25 @@
+<%= render 'form' %>
+
+<h2>Found <%=@interactives.count %> Interactives</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Publicaton Status</th>
+      <th>Group</th>
+      <th>Category</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @interactives %>
+  </tbody>
+</table>
+<%= will_paginate @interactives %>
+
+<br>
+
+<%= link_to 'New Interactive', new_interactive_path, :class => 'button
+radius'%>
