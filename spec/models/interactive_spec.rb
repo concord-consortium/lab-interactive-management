@@ -41,7 +41,7 @@ describe Interactive do
 
     it "should belong to one group" do
       subject
-      Group.first.json_rep.should == subject.group.json_rep
+      Group.first.name == subject.group.name
       Group.first.revision.should == subject.group.revision
     end
 

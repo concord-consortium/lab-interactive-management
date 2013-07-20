@@ -7,7 +7,7 @@ module Parser
     end
 
     def create_model
-      ::Group.create!(:json_rep => group_hash, :revision => '0.0.1')
+      ::Group.create!(:name => group_hash['name'], :path => group_hash['path'], :category => group_hash['category'], :revision => '0.0.1')
     end
   end
 end

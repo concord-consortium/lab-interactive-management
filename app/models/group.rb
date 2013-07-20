@@ -1,8 +1,6 @@
 class Group < ActiveRecord::Base
-  include ::GroupStore
 
   has_many :interactives
-
 
   def presenter
     # trickery to get the serialized attribute, json_rep, to show up
