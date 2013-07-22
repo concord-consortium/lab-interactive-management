@@ -1,5 +1,7 @@
 class Group < ActiveRecord::Base
 
+  scope :categories, lambda { select(:category).distinct }
+
   has_many :interactives
 
   def presenter

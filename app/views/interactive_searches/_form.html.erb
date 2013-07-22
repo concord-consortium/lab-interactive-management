@@ -5,7 +5,7 @@
   </div>
   <div class="field">
     <%= f.label :group_category %>
-    <%= f.collection_select :group_category, Group.select(:category).distinct, :category, :category, :include_blank => true %>
+    <%= f.collection_select :group_category, Group.categories, :category, :category, :include_blank => true %>
   </div>
 
   <div class="field">
