@@ -198,7 +198,7 @@ AUTHORING = false;
       applicationCallbacks = [setupFullPage];
     }
 
-    $.get(interactiveUrl).done(function(results) {
+    $.getJSON(interactiveUrl).done(function(results) {
       if (typeof results === 'string') results = JSON.parse(results);
       interactiveRemote = results;
       interactive = _.omit(interactiveRemote, interactiveRemoteKeys);
