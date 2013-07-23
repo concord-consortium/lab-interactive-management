@@ -1,4 +1,9 @@
 class Interactive < ActiveRecord::Base
+
+  def self.publication_statuses
+    connection.execute("select distinct svals(slice(json_rep,ARRAY['publicationStatus'])) from interactives").map{ |r | r["svals"] }
+  end
+
   # does all magic for serialized attributes
   include InteractiveStore
 

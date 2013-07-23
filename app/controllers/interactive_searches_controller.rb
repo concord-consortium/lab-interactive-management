@@ -1,7 +1,5 @@
 class InteractiveSearchesController < ApplicationController
 
-  before_action :publication_statuses, only: [:new, :show]
-
   def new
     @interactive_search = InteractiveSearch.new
   end
@@ -19,7 +17,4 @@ class InteractiveSearchesController < ApplicationController
 
   private
 
-  def publication_statuses
-    @publication_statuses ||= Interactive.where('json_rep ? :key', :key => 'publicationStatus').map(&:publicationStatus).uniq.map{ |p| [p, p]}
-  end
 end
